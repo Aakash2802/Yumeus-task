@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import "../components/Footer.css";
 
 export default function Footer() {
@@ -10,7 +13,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-12">
 
           {/* LEFT LOGO */}
-          <div className="text-center lg:text-left">
+          <motion.div
+            className="text-center lg:text-left"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <Image
               src="/logo2.svg"
               alt="InstaPlumbers"
@@ -28,14 +37,26 @@ export default function Footer() {
             </p>
 
             <div className="flex justify-center lg:justify-start gap-4 mt-6">
-              <Image src="/fb.svg" alt="fb" width={10} height={18} />
-              <Image src="/youtube.svg" alt="yt" width={14} height={18} />
-              <Image src="/x.svg" alt="x" width={14} height={18} />
+              <motion.div whileHover={{ scale: 1.2 }} transition={{ duration: 0.2 }}>
+                <Image src="/fb.svg" alt="fb" width={10} height={18} />
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.2 }} transition={{ duration: 0.2 }}>
+                <Image src="/youtube.svg" alt="yt" width={14} height={18} />
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.2 }} transition={{ duration: 0.2 }}>
+                <Image src="/x.svg" alt="x" width={14} height={18} />
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* RIGHT CTA */}
-          <div className="w-full lg:w-190 pb-1 padbt border-b-0 lg:border-b lg:border-white/20">
+          <motion.div
+            className="w-full lg:w-190 pb-1 padbt border-b-0 lg:border-b lg:border-white/20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          >
             <div className="flex flex-col lg:flex-row lg:items-center gap-5 text-center lg:text-left">
 
               <div>
@@ -43,33 +64,71 @@ export default function Footer() {
                   Need a Plumber Right Now?
                 </h3>
                 <p className="text-white/70 text-xs max-w-xl mx-auto lg:mx-0">
-                  We've got professionals on-call 24/7 across London. <br />
+                  We&apos;ve got professionals on-call 24/7 across London. <br />
                   Get fast, affordable plumbing help today.
                 </p>
               </div>
 
               {/* CTA BUTTONS */}
               <div className="flex flex-row justify-center lg:justify-start gap-4">
-                <button className="border border-white/40 px-2 py-3 rounded-full text-xs inline-flex items-center gap-2 hover:bg-white hover:text-[#061C33] transition">
+                <motion.button
+                  className="border border-white/40 px-2 py-3 rounded-full text-xs inline-flex items-center gap-2 hover:bg-white hover:text-[#061C33] transition"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  animate={{
+                    boxShadow: [
+                      "0 0 0 0 rgba(255, 255, 255, 0)",
+                      "0 0 0 6px rgba(255, 255, 255, 0.1)",
+                      "0 0 0 0 rgba(255, 255, 255, 0)",
+                    ],
+                    transition: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }
+                  }}
+                >
                   <Image src="/loacaton.svg" alt="Location" width={13} height={16} />
                   Find a Plumber Near Me
-                </button>
+                </motion.button>
 
-                <button className="bg-white text-[#061C33] px-2 py-3 rounded-full text-xs font-semibold inline-flex items-center gap-2 hover:bg-gray-200 transition">
+                <motion.button
+                  className="bg-white text-[#061C33] px-2 py-3 rounded-full text-xs font-semibold inline-flex items-center gap-2 hover:bg-gray-200 transition"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  animate={{
+                    boxShadow: [
+                      "0 0 15px rgba(255, 255, 255, 0.3)",
+                      "0 0 25px rgba(255, 255, 255, 0.5)",
+                      "0 0 15px rgba(255, 255, 255, 0.3)",
+                    ],
+                    transition: {
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }
+                  }}
+                >
                   <Image src="/call.svg" alt="Phone" width={13} height={16} />
                   0800-123-4567
-                </button>
+                </motion.button>
               </div>
 
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* ================= LINKS ROW ================= */}
         <div className="pt-4">
 
           {/* MOBILE: 2 COLUMN LINKS (FIGMA STYLE) */}
-          <div className="grid grid-cols-2 gap-10 lg:hidden text-left">
+          <motion.div
+            className="grid grid-cols-2 gap-10 lg:hidden text-left"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+          >
             <div>
               <h5 className="font-semibold mb-4">Useful Link</h5>
               <ul className="space-y-2 text-xs text-white/70">
@@ -92,10 +151,16 @@ export default function Footer() {
                 <li>Other Policy</li>
               </ul>
             </div>
-          </div>
+          </motion.div>
 
           {/* DESKTOP: ORIGINAL GRID (UNCHANGED) */}
-          <div className="hidden lg:grid grid-cols-[320px_1fr] padbt1 gap-12">
+          <motion.div
+            className="hidden lg:grid grid-cols-[320px_1fr] padbt1 gap-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+          >
 
             <div></div>
 
@@ -131,22 +196,34 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* MOBILE CONTACT (LEFT ALIGNED LIKE FIGMA) */}
-          <div className="lg:hidden mt-10 text-left">
+          <motion.div
+            className="lg:hidden mt-10 text-left"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+          >
             <h5 className="font-semibold mb-4">Contact</h5>
             <p className="text-xs text-white/70">
               334 Stamford Street <br />
               London, SE1 9NQ, UK
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* ================= COPYRIGHT ================= */}
-        <div className="hidden lg:block mt-10 pt-6 text-center text-xs text-white/50">
+        <motion.div
+          className="hidden lg:block mt-10 pt-6 text-center text-xs text-white/50"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+        >
           © MyCompany Name Ltd. All Rights Reserved.
-        </div>
+        </motion.div>
 
       </div>
     </footer>

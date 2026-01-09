@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const menuItems = [
   "Home",
@@ -14,16 +15,52 @@ const menuItems = [
 export default function Navbar() {
   const [active, setActive] = useState("Home");
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const { scrollY } = useScroll();
+  const backgroundColor = useTransform(
+    scrollY,
+    [0, 100],
+    ["rgba(255, 255, 255, 1)", "rgba(255, 255, 255, 0.95)"]
+  );
+  const backdropBlur = useTransform(
+    scrollY,
+    [0, 100],
+    ["blur(0px)", "blur(10px)"]
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="w-full bg-white z-50 sticky top-0 shadow-[0_6px_30px_rgba(0,0,0,0.12)]">
+    <motion.header
+      className="w-full z-50 sticky top-0 shadow-[0_6px_30px_rgba(0,0,0,0.12)]"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      style={{
+        backgroundColor,
+        backdropFilter: backdropBlur,
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
 
         {/* Top Row */}
         <div className="flex items-center justify-between">
 
           {/* Logo */}
-          <div className="flex items-center">
+          <motion.div
+            className="flex items-center"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <Image
               src="/logo1.svg"
               alt="InstaPlumbers Logo"
@@ -32,12 +69,17 @@ export default function Navbar() {
               className="sm:w-[150px] sm:h-[40px]"
               priority
             />
-          </div>
+          </motion.div>
 
           {/* Desktop Menu */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-sm xl:text-base">
-            {menuItems.map((item) => (
-              <button
+          <motion.nav
+            className="hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-sm xl:text-base"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+          >
+            {menuItems.map((item, index) => (
+              <motion.button
                 key={item}
                 onClick={() => setActive(item)}
                 className={`transition whitespace-nowrap ${
@@ -45,16 +87,27 @@ export default function Navbar() {
                     ? "text-[#0EA5E9] font-bold"
                     : "text-gray-600 hover:text-[#0EA5E9]"
                 }`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.4 + index * 0.1, ease: "easeOut" }}
+                whileHover={{ y: -2 }}
               >
                 {item}
-              </button>
+              </motion.button>
             ))}
-          </nav>
+          </motion.nav>
 
           {/* Desktop Button */}
-          <button className="hidden lg:block border-2 border-[#0EA5E9] text-[#0EA5E9] px-4 xl:px-5 py-2 rounded-lg font-semibold hover:bg-[#0EA5E9] hover:text-white transition text-sm xl:text-base whitespace-nowrap">
+          <motion.button
+            className="hidden lg:block border-2 border-[#0EA5E9] text-[#0EA5E9] px-4 xl:px-5 py-2 rounded-lg font-semibold hover:bg-[#0EA5E9] hover:text-white transition text-sm xl:text-base whitespace-nowrap"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Contact Us
-          </button>
+          </motion.button>
 
           {/* Mobile Hamburger */}
           <button
@@ -126,6 +179,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

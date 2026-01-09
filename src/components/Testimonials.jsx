@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function Testimonials() {
   const mobileTestimonialRef = useRef(null); // ✅ MOBILE ONLY
@@ -45,7 +46,13 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
 
         {/* ================= HEADING ================= */}
-        <div className="flex items-center justify-between mb-10">
+        <motion.div
+          className="flex items-center justify-between mb-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div>
             <span className="hidden sm:inline-block mb-3 px-3 py-1 text-xs border rounded-full">
               TESTIMONIALS
@@ -57,7 +64,10 @@ export default function Testimonials() {
           </div>
 
           {/* DESKTOP ARROWS */}
-          <div className="hidden sm:flex bg-[#0F172A] rounded-full p-1">
+          <motion.div
+            className="hidden sm:flex bg-[#0F172A] rounded-full p-1"
+            whileHover={{ scale: 1.05 }}
+          >
             <button
               onClick={() => scroll(desktopTestimonialRef, "left")}
               className="w-10 h-10 text-white flex items-center justify-center"
@@ -70,8 +80,8 @@ export default function Testimonials() {
             >
               ›
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* ================= MOBILE TESTIMONIAL CAROUSEL ================= */}
         <div className="sm:hidden relative">
@@ -100,8 +110,15 @@ export default function Testimonials() {
                        snap-x snap-mandatory pb-6 no-scrollbar"
           >
             {testimonials.map((t, i) => (
-              <div key={i} className="min-w-[90%] snap-center bg-[#EEF2F6] p-6 rounded-xl shadow" >
-                <div className="text-4xl text-[#0EA5E9] mb-3">“</div>
+              <motion.div
+                key={i}
+                className="min-w-[90%] snap-center bg-[#EEF2F6] p-6 rounded-xl shadow"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: i * 0.2, ease: "easeOut" }}
+              >
+                <div className="text-4xl text-[#0EA5E9] mb-3">&ldquo;</div>
                 <p className="text-gray-700 mb-5 text-sm">{t.review}</p>
 
                 <div className="flex items-center justify-between">
@@ -114,7 +131,7 @@ export default function Testimonials() {
                     <Image src={t.image} alt={t.name} fill className="object-cover" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -125,8 +142,16 @@ export default function Testimonials() {
           className="hidden sm:grid grid-cols-2 gap-8"
         >
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-[#EEF2F6] p-8 rounded-xl shadow">
-              <div className="text-5xl text-[#0EA5E9] mb-4">“</div>
+            <motion.div
+              key={i}
+              className="bg-[#EEF2F6] p-8 rounded-xl shadow"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: i * 0.2, ease: "easeOut" }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+            >
+              <div className="text-5xl text-[#0EA5E9] mb-4">&ldquo;</div>
               <p className="text-gray-700 mb-6">{t.review}</p>
 
               <div className="flex items-center justify-between">
@@ -139,33 +164,60 @@ export default function Testimonials() {
                   <Image src={t.image} alt={t.name} fill className="object-cover" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* ================= MOBILE LOGOS ================= */}
-        <div className="mt-12 sm:hidden">
+        <motion.div
+          className="mt-12 sm:hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div
             ref={logoRef}
             className="flex gap-10 overflow-x-auto scroll-smooth
                        snap-x snap-mandatory no-scrollbar"
           >
             {logos.map((logo, i) => (
-              <div key={i} className="min-w-[100px] h-12 snap-center relative">
+              <motion.div
+                key={i}
+                className="min-w-[100px] h-12 snap-center relative"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.4, delay: i * 0.1, ease: "easeOut" }}
+              >
                 <Image src={logo.image} alt={logo.name} fill className="object-contain" />
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* ================= DESKTOP LOGOS ================= */}
-        <div className="hidden sm:flex justify-between items-center mt-14">
+        <motion.div
+          className="hidden sm:flex justify-between items-center mt-14"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           {logos.map((logo, i) => (
-            <div key={i} className="relative h-12 w-24">
+            <motion.div
+              key={i}
+              className="relative h-12 w-24"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+            >
               <Image src={logo.image} alt={logo.name} fill className="object-contain" />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
